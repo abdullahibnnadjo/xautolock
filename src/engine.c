@@ -46,6 +46,8 @@ queryIdleTime (Display* d, Bool use_xidle)
     if (!mitInfo) mitInfo = XScreenSaverAllocInfo ();
     XScreenSaverQueryInfo (d, DefaultRootWindow (d), mitInfo);
     idleTime = mitInfo->idle;
+    if (mitInfo->state == ScreenSaverDisabled)
+	idleTime = 0;
 #endif /* HasScreenSaver */
   }
 
