@@ -13,6 +13,7 @@ This man page applies to xautolock version 2.2.
 [\fB\-time\fR \fImins\fR] [\fB\-locker\fR \fIlocker\fR]
 [\fB\-killtime \fIkillmins\fR\fR] [\fB\-killer\fR \fIkiller\fR]
 [\fB\-notify \fImargin\fR] [\fB\-notifier \fInotifier\fR]
+[\fB\-notifyspecified\fR]
 [\fB\-bell \fIpercent\fR]
 [\fB\-corners\fR \fIxxxx\fR]
 [\fB\-cornerdelay\fR \fIsecs\fR]
@@ -161,7 +162,8 @@ shell, ~ expansion most likely will not work.
 Warn the user \fImargin\fR seconds before locking. The default is to not
 warn the user. If used in conjunction with \fB\-cornerdelay\fR or 
 \fB\-cornerredelay\fR, the notification margin used is the minimum of
-\fImargin\fR, \fIsecs\fR and/or \fIaltsecs\fR.
+\fImargin\fR, \fIsecs\fR and/or \fIaltsecs\fR, unless \fB\-notifyspecified\fR
+is used.
 .TP
 \fB\-notifier\fR
 Specifies the \fInotifier\fR to be used. The default is none. This
@@ -171,6 +173,10 @@ quotes.  In order to use your PATH to locate the program, xautolock feeds
 the \fInotifier\fR command to /bin/sh, so it should be understandable 
 for whatever shell your /bin/sh is. Because this typically is a Bourne 
 shell, ~ expansion most likely will not work.
+.TP
+\fB\-notifyspecified\fR
+Use the \fImargin\fR time specified with \fB\-notify\fR, not the shortest
+between \fImargin\fR, \fIsecs\fR and/or \fIaltsecs\fR.
 .TP
 \fB\-bell\fR
 Specifies the loudness of the notification signal in the absence of the
@@ -298,12 +304,15 @@ Specifies the \fIkiller\fR. No quotes are needed, even if the
 \fIkiller\fR command contains multiple words.
 .TP   
 .B notify 
-Specifies the notification margin. Numerical.
+Specifies the notification \fImargin\fR. Numerical.
 .TP 
 .B notifier 
 Specifies the \fInotifier\fR. No quotes are needed, even if the 
 \fInotifier\fR command contains multiple words.
 .TP 
+.B notifyspecified
+Always use the notification \fImargin\fR specified with \fB\-notify\fR.
+.TP
 .B bell 
 Specifies the notification loudness. Numerical.
 .TP 

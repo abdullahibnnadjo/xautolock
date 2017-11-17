@@ -53,7 +53,7 @@ extern int          bellPercent;
 extern unsigned     cornerSize;
 extern Bool         secure, notifyLock, useRedelay, resetSaver, 
                     noCloseOut, noCloseErr, detectSleep,
-                    ignoreXSS;
+                    ignoreXSS, notifyspecified;
 extern cornerAction corners[4];
 extern message      messageToSend; 
 

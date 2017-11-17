@@ -54,6 +54,8 @@ Bool         detectSleep = False;        /* whether to reset the timers
 					    i.e. after a big time jump  */
 Bool         ignoreXSS = False;          /* whether ignore X Screen
                                             Saver settings              */
+Bool         notifyspecified = False;    /* whether prefer the specified
+                                            margin time for notify      */
 
 #ifdef VMS
 struct dsc$descriptor lockerDescr;       /* used to fire up the locker  */
@@ -228,12 +230,13 @@ name##Action (Display* d, const char* arg) \
   return name = True;                      \
 }
 
-BOOL_ACTION (secure    )
-BOOL_ACTION (resetSaver)
-BOOL_ACTION (noCloseOut)
-BOOL_ACTION (noCloseErr)
-BOOL_ACTION (detectSleep)
-BOOL_ACTION (ignoreXSS  )
+BOOL_ACTION (secure         )
+BOOL_ACTION (resetSaver     )
+BOOL_ACTION (noCloseOut     )
+BOOL_ACTION (noCloseErr     )
+BOOL_ACTION (detectSleep    )
+BOOL_ACTION (ignoreXSS      )
+BOOL_ACTION (notifyspecified)
 
 static Bool
 noCloseAction (Display* d, const char* arg)
@@ -392,7 +395,8 @@ notifyChecker (Display* d)
       && (   corners[0] == ca_forceLock  
 	  || corners[1] == ca_forceLock
 	  || corners[2] == ca_forceLock
-	  || corners[3] == ca_forceLock))
+	  || corners[3] == ca_forceLock)
+      && !notifyspecified)
   {
     time_t minDelay = MIN (cornerDelay, cornerRedelay);
 
@@ -540,6 +544,8 @@ static struct
     detectSleepAction  , (optChecker) 0            },
   {"ignoreXSS"         , XrmoptionNoArg , (caddr_t) "",
     ignoreXSSAction    , (optChecker) 0            },
+  {"notifyspecified"   , XrmoptionNoArg , (caddr_t) "",
+    notifyspecifiedAction, (optChecker) 0           },
 }; /* as it says, the order is important! */
 
 /*
@@ -565,8 +571,8 @@ usage (int exitCode)
   error1 ("Usage : %s ", progName);
   error0 ("[-help][-version][-time mins][-locker locker]\n");
   error1 ("%s[-killtime mins][-killer killer]\n", blanks);
-  error1 ("%s[-notify margin][-notifier notifier][-bell percent]\n", blanks);
-  error1 ("%s[-corners xxxx][-cornerdelay secs]\n", blanks);
+  error1 ("%s[-notify margin][-notifier notifier][-notifyspecified]\n", blanks);
+  error1 ("%s[-bell percent][-corners xxxx][-cornerdelay secs]\n", blanks);
   error1 ("%s[-cornerredelay secs][-cornersize pixels]\n", blanks);
   error1 ("%s[-nocloseout][-nocloseerr][-noclose]\n", blanks);
   error1 ("%s[-enable][-disable][-toggle][-exit][-secure]\n", blanks);
@@ -587,6 +593,7 @@ usage (int exitCode)
   error0 (" -killer killer      : program used to kill.\n");
   error0 (" -notify margin      : notify this many seconds before locking.\n");
   error0 (" -notifier notifier  : program used to notify.\n");
+  error0 (" -notifyspecified    : use the specified notify time\n");
   error0 (" -bell percent       : loudness of notification beeps.\n");
   error0 (" -corners xxxx       : corner actions (0, +, -) in this order:\n");
   error0 ("                       topleft topright bottomleft bottomright\n");
