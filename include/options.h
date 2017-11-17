@@ -52,7 +52,8 @@ extern time_t       lockTime, killTime, notifyMargin,
 extern int          bellPercent;
 extern unsigned     cornerSize;
 extern Bool         secure, notifyLock, useRedelay, resetSaver, 
-                    noCloseOut, noCloseErr, detectSleep;
+                    noCloseOut, noCloseErr, detectSleep,
+                    ignoreXSS;
 extern cornerAction corners[4];
 extern message      messageToSend; 
 

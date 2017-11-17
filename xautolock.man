@@ -24,6 +24,7 @@ This man page applies to xautolock version 2.2.
 [\fB\-disable\fR] [\fB\-enable\fR] [\fB\-toggle\fR] [\fB\-exit\fR]
 [\fB\-locknow\fR] [\fB\-unlocknow\fR] [\fB\-nowlocker\fR \fIlocker\fR]
 [\fB\-restart\fR] [\fB\-detectsleep\fR]
+[\fB\-ignoreXSS\fR]
 
 .SH DESCRIPTION 
 Xautolock monitors the user activity on an X Window display. If none is
@@ -272,6 +273,13 @@ program given with \fB\-locker\fR option, which defaults to xlock.
 Causes an already running xautolock process (if there is one and 
 it does not have \fB\-secure\fR switched on) to restart. In any
 case, the current invocation of xautolock exits.
+.TP
+\fB\-ignoreXSS\fR
+By default, xautolock honors X Screen Saver's state by blocking the
+timeout count when it's off. It's useful when video players and
+applications like games are changing it when running in full screen
+mode to disable screen saving. \fB\-ignoreXSS\fR tells xautolock not
+to do this.
 
 .SH RESOURCES
 .TP 16
@@ -322,6 +330,9 @@ Don't close stderr. Boolean.
 .TP   
 .B noclose 
 Close neither stdout nor stderr. Boolean.
+.TP
+.B ignoreXSS
+Run locker even if X Screen Saver is off. Boolean.
 
 .PP
 Resources can be specified in your \fI~/.Xresources\fR or \fI~/.Xdefaults\fR
