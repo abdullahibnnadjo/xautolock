@@ -80,7 +80,12 @@ Xautolock should compile straight out of the box. Here's the recepy:
 
  3. Have fun.
 
-If this procedure fails, the most likely reason is the absence of the
+If  this procedure  fails by a  `error: storage size of ‘status’
+isn’t known` compile error, try to run the first command printed
+by `xmkmf` adding `-DOSF` flag, then `make clean && make`.
+(e.g. `imake -DUseInstalled -I/usr/share/X11/config -DOSF`)
+
+Also, the most likely reason is the absence of the
 MIT ScreenSaver extension on your system. If this is the case, simply
 edit the Imakefile accordingly and try again.
 
