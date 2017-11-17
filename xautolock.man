@@ -159,7 +159,7 @@ shell, ~ expansion most likely will not work.
 \fB\-notify\fR
 Warn the user \fImargin\fR seconds before locking. The default is to not
 warn the user. If used in conjunction with \fB\-cornerdelay\fR or 
-\fB\-cornerredelay\fR, the notification margin iused is the minimum of
+\fB\-cornerredelay\fR, the notification margin used is the minimum of
 \fImargin\fR, \fIsecs\fR and/or \fIaltsecs\fR.
 .TP
 \fB\-notifier\fR
